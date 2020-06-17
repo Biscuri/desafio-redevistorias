@@ -29,8 +29,9 @@ class ApiController extends Controller {
     public function getStats() {
         return response()->json(['success' => true], 200);
     }
-    public function getStatsUrl() {
-        return response()->json(['success' => true], 200);
+    public function getStatsUrl($id) {
+        $url = $this->urlRepo->stats($id);
+        return response()->json($url, 200);
     }
     public function createUser() {
         return response()->json(['success' => true], 200);

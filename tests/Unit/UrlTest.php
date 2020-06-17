@@ -18,6 +18,19 @@ class UrlTest extends TestCase {
         $this->seed();
     }
 
+    public function testGetStatsUrl() {
+        $response = $this->json('GET', '/stats/shorturl_1');
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'id' => 'shorturl_1',
+                'hits' => '1',
+                'url' => 'https://www.google.com/search?&q=1',
+                'shortUrl' => 'https://shortn.er/shorturl_1',
+                'user_id' => 'joao'
+            ]);
+    }
+
     public function testGetUrl() {
         $response = $this->json('GET', '/urls/shorturl_1');
         $response->assertRedirect('https://www.google.com/search?&q=1');
@@ -25,8 +38,12 @@ class UrlTest extends TestCase {
         $response = $this->json('GET', '/urls/foo');
         $response->assertStatus(404);
     }
-    public function testGetStatsUrl() {
-        $response = $this->json('GET', '/stats/1');
+
+    public function testUrlHit(){
+        $response = $this->json('GET', '/urls/shorturl_1');
+        $response->assertRedirect('https://www.google.com/search?&q=1');
+
+        $response = $this->json('GET', '/stats/shorturl_1');
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -34,8 +51,10 @@ class UrlTest extends TestCase {
                 'hits' => '2',
                 'url' => 'https://www.google.com/search?&q=1',
                 'shortUrl' => 'https://shortn.er/shorturl_1',
+                'user_id' => 'joao'
             ]);
     }
+
     public function testDeleteUrl() {
         $response = $this->json('DELETE', '/urls/1');
         $response
