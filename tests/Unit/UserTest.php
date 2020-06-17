@@ -102,12 +102,41 @@ class UserTest extends TestCase {
     }
 
     public function testDeleteUser() {
-        $this->markTestSkipped();
         $response = $this->json('DELETE', '/user/joao');
         $response
             ->assertStatus(200);
         $this->assertDeleted('users', [
-            'id' => 'shorturl_joao',
+            'id' => 'joao',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_1',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_2',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_3',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_4',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_5',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_6',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_7',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_8',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_9',
+        ]);
+        $this->assertDeleted('urls', [
+            'id' => 'shorturl_10',
         ]);
     }
 }

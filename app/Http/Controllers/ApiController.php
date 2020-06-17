@@ -62,12 +62,17 @@ class ApiController extends Controller {
         }
     }
 
-    public function getStatsUser($user) {
-        $stats = $this->userRepo->stats($user);
+    public function getStatsUser($id) {
+        $stats = $this->userRepo->stats($id);
         return response()->json($stats, 200);
     }
 
-    public function deleteUser() {
-        return response()->json(['success' => true], 200);
+    public function deleteUser($id) {
+        try {
+            $this->userRepo->delete($id);
+            return response([], 200);
+        } catch (Exception $e) {
+            return response([], 404);
+        }
     }
 }
