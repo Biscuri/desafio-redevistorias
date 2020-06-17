@@ -30,7 +30,6 @@ class UserTest extends TestCase {
     }
 
     public function testGetStatsUser() {
-        $this->markTestSkipped();
         $response = $this->json('GET', '/users/joao/stats');
         $response
             ->assertStatus(200)
