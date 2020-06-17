@@ -28,7 +28,7 @@ class UserRepository {
 
     public function delete($id) {
         $user = User::find($id);
-        if ($user){
+        if ($user) {
             Url::where('user_id', $id)->delete();
             $user->delete();
         } else {

@@ -2,19 +2,18 @@
 
 namespace App\Repositories;
 
-use App\Repositories\BaseRepositoryInterface;
 use App\Url;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 
 class UrlRepository {
     public function hit($id) {
-        if (Cache::has($id)){
+        if (Cache::has($id)) {
             $url = Cache::pull($id, null);
         } else {
             $url = Url::find($id);
         }
-        if ($url){
+        if ($url) {
             $url->hits++;
             $url->save();
             Cache::put($id, $url);
@@ -23,19 +22,22 @@ class UrlRepository {
             throw new Exception("Url not found");
         }
     }
+
     public function stats($id) {
         return Url::find($id);
     }
-    public function globalStats(){
+
+    public function globalStats() {
         $stats = [];
         $stats['hits'] = Url::sum('hits');
         $stats['urlCount'] = Url::count('*');
         $stats['topUrls'] = Url::orderBy('hits', 'DESC')->take(10)->get()->toArray();
-        foreach ($stats['topUrls'] as &$url){
+        foreach ($stats['topUrls'] as &$url) {
             unset($url['user_id']);
         }
         return $stats;
     }
+
     public function create($data) {
         $url = new Url();
         $url->url = $data['url'];
@@ -48,7 +50,7 @@ class UrlRepository {
 
         $url->id = $string;
         $url->hits = '0';
-        $url->shortUrl = request()->getSchemeAndHttpHost().'/'.$string;
+        $url->shortUrl = request()->getSchemeAndHttpHost() . '/' . $string;
         $url->user_id = $data['user'];
         $url->save();
 
@@ -56,9 +58,10 @@ class UrlRepository {
         unset($url['user_id']);
         return $url;
     }
+
     public function delete($id) {
         $url = Url::find($id);
-        if ($url){
+        if ($url) {
             $url->delete();
         } else {
             throw new Exception("Url not found");

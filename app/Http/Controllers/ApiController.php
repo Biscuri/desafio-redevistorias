@@ -47,7 +47,7 @@ class ApiController extends Controller {
     public function createUrl(Request $request, $user) {
         $data = [
             'url' => $request->input('url'),
-            'user' => $user
+            'user' => $user,
         ];
         $url = $this->urlRepo->create($data);
         return response()->json($url, 201);
@@ -57,7 +57,7 @@ class ApiController extends Controller {
         try {
             $user = $this->userRepo->createUser($request->get('user'));
             return response()->json($user, 201);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             return response([], 409);
         }
     }
