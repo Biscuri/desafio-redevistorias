@@ -90,7 +90,9 @@ class UserTest extends TestCase {
     public function testDeleteUser() {
         $response = $this->json('DELETE', '/user/joao');
         $response
-            ->assertStatus(200)
-            ->assertJson([]);
+            ->assertStatus(200);
+        $this->assertDeleted('users', [
+            'id' => 'joao',
+        ]);
     }
 }

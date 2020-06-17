@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Url;
 
 class UrlTest extends TestCase {
 
@@ -35,8 +36,10 @@ class UrlTest extends TestCase {
     public function testDeleteUrl() {
         $response = $this->json('DELETE', '/urls/1');
         $response
-            ->assertStatus(200)
-            ->assertJson([]);
+            ->assertStatus(200);
+        $this->assertDeleted('urls', [
+            'id' => '1'
+        ]);
     }
     public function testGetStats() {
         $response = $this->json('GET', '/stats');
