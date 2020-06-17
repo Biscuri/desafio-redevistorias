@@ -2,8 +2,7 @@
 
 namespace App\Repositories;
 
-interface BaseRepositoryInterface
-{
+interface BaseRepositoryInterface {
     public function get();
     public function list();
     public function create();
