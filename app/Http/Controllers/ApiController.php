@@ -7,27 +7,27 @@ use Illuminate\Http\Request;
 class ApiController extends Controller
 {
     public function getUrl(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
     public function deleteUrl(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
     public function getStats(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
     public function getStatsUrl(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
     public function createUser(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
     public function createUrl(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
     public function getStatsUser(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
     public function deleteUser(){
-        return true;
+        return response()->json(['success' => true], 200);
     }
 }
