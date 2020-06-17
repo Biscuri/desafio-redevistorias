@@ -33,3 +33,5 @@ Digite yes quando o prompt pedir. Terminando de executar o script, o projeto est
 ```
 php artisan test
 ```
+
+Para que os testes rodem devidamente, o driver mysqlite deve estar habilitado no php.ini
