@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\UrlRepository;
 use App\Repositories\UserRepository;
 use Exception;
+use Illuminate\Http\Request;
 
 class ApiController extends Controller {
     protected $urlRepo;
@@ -16,38 +17,50 @@ class ApiController extends Controller {
     }
 
     public function getUrl($id) {
-        try{
+        try {
             $url = $this->urlRepo->hit($id);
             return response()->redirectTo($url->url);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             return response([], 404);
         }
     }
+
     public function deleteUrl($id) {
         try {
             $this->urlRepo->delete($id);
             return response([], 200);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             return response([], 404);
         }
     }
+
     public function getStats() {
         $stats = $this->urlRepo->globalStats();
         return response()->json($stats, 200);
     }
+
     public function getStatsUrl($id) {
         $url = $this->urlRepo->stats($id);
         return response()->json($url, 200);
     }
+
+    public function createUrl(Request $request, $user) {
+        $data = [
+            'url' => $request->input('url'),
+            'user' => $user
+        ];
+        $url = $this->urlRepo->create($data);
+        return response()->json($url, 201);
+    }
+
     public function createUser() {
         return response()->json(['success' => true], 200);
     }
-    public function createUrl() {
-        return response()->json(['success' => true], 200);
-    }
+
     public function getStatsUser() {
         return response()->json(['success' => true], 200);
     }
+
     public function deleteUser() {
         return response()->json(['success' => true], 200);
     }

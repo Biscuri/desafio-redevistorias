@@ -46,10 +46,14 @@ class UrlRepository {
             $string .= $characters[mt_rand(0, strlen($characters) - 1)];
         }
 
+        $url->id = $string;
+        $url->hits = '0';
         $url->shortUrl = request()->getSchemeAndHttpHost().'/'.$string;
         $url->user_id = $data['user'];
         $url->save();
 
+        $url = $url->toArray();
+        unset($url['user_id']);
         return $url;
     }
     public function delete($id) {

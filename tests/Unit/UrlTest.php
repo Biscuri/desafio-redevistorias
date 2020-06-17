@@ -139,11 +139,15 @@ class UrlTest extends TestCase {
         $response = $this->json('POST', '/users/joao/urls', ['url' => 'https://www.google.com/search?q=rede+vistorias']);
         $response
             ->assertStatus(201)
-            ->assertJson([
-                'hits' => '16',
-                'id' => 'shorturl_16',
-                'shortUrl' => 'https://shortn.er/shorturl_16',
-                'url' => 'https://www.google.com/search?&q=16',
+            ->assertJsonStructure([
+                'hits',
+                'id',
+                'shortUrl',
+                'url'
+            ])
+            ->assertJsonFragment([
+                'hits' => '0',
+                'url' => 'https://www.google.com/search?q=rede+vistorias',
             ]);
     }
 }
