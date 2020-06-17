@@ -14,7 +14,7 @@ class Url extends Migration
     public function up()
     {
         Schema::create('urls', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->unsignedBigInteger('hits')->default(0);
             $table->string('shortUrl')->unique();
             $table->string('url')->unique();
