@@ -23,11 +23,17 @@ class ApiController extends Controller {
             return response([], 404);
         }
     }
-    public function deleteUrl() {
-        return response([], 200);
+    public function deleteUrl($id) {
+        try {
+            $this->urlRepo->delete($id);
+            return response([], 200);
+        } catch (Exception $e){
+            return response([], 404);
+        }
     }
     public function getStats() {
-        return response()->json(['success' => true], 200);
+        $stats = $this->urlRepo->globalStats();
+        return response()->json($stats, 200);
     }
     public function getStatsUrl($id) {
         $url = $this->urlRepo->stats($id);

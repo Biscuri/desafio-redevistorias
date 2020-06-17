@@ -27,7 +27,14 @@ class UrlRepository {
         return Url::find($id);
     }
     public function globalStats(){
-        
+        $stats = [];
+        $stats['hits'] = Url::sum('hits');
+        $stats['urlCount'] = Url::count('*');
+        $stats['topUrls'] = Url::orderBy('hits', 'DESC')->take(10)->get()->toArray();
+        foreach ($stats['topUrls'] as &$url){
+            unset($url['user_id']);
+        }
+        return $stats;
     }
     public function create($data) {
         $url = new Url();
@@ -45,6 +52,12 @@ class UrlRepository {
 
         return $url;
     }
-    public function delete($data) {
+    public function delete($id) {
+        $url = Url::find($id);
+        if ($url){
+            $url->delete();
+        } else {
+            throw new Exception("Url not found");
+        }
     }
 }

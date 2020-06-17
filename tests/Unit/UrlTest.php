@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Url;
 
 class UrlTest extends TestCase {
 
@@ -27,19 +26,19 @@ class UrlTest extends TestCase {
                 'hits' => '1',
                 'url' => 'https://www.google.com/search?&q=1',
                 'shortUrl' => 'https://shortn.er/shorturl_1',
-                'user_id' => 'joao'
+                'user_id' => 'joao',
             ]);
     }
 
     public function testGetUrl() {
         $response = $this->json('GET', '/urls/shorturl_1');
         $response->assertRedirect('https://www.google.com/search?&q=1');
-        
+
         $response = $this->json('GET', '/urls/foo');
         $response->assertStatus(404);
     }
 
-    public function testUrlHit(){
+    public function testUrlHit() {
         $response = $this->json('GET', '/urls/shorturl_1');
         $response->assertRedirect('https://www.google.com/search?&q=1');
 
@@ -51,25 +50,26 @@ class UrlTest extends TestCase {
                 'hits' => '2',
                 'url' => 'https://www.google.com/search?&q=1',
                 'shortUrl' => 'https://shortn.er/shorturl_1',
-                'user_id' => 'joao'
+                'user_id' => 'joao',
             ]);
     }
 
     public function testDeleteUrl() {
-        $response = $this->json('DELETE', '/urls/1');
+        $response = $this->json('DELETE', '/urls/shorturl_1');
         $response
             ->assertStatus(200);
         $this->assertDeleted('urls', [
-            'id' => 'shorturl_1'
+            'id' => 'shorturl_1',
         ]);
     }
+
     public function testGetStats() {
         $response = $this->json('GET', '/stats');
         $response
             ->assertStatus(200)
             ->assertJson([
-                'hits' => '121',
-                'urlCount' => '15',
+                'hits' => '120',
+                'urlCount' => 15,
                 'topUrls' => [
                     [
                         'id' => 'shorturl_15',
@@ -134,6 +134,7 @@ class UrlTest extends TestCase {
                 ],
             ]);
     }
+
     public function testCreateUrl() {
         $response = $this->json('POST', '/users/joao/urls', ['url' => 'https://www.google.com/search?q=rede+vistorias']);
         $response
