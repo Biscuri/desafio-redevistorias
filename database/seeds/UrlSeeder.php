@@ -15,7 +15,7 @@ class UrlSeeder extends Seeder
     {
         for ($i = 1 ; $i <= 10 ; $i++){
             DB::table('urls')->insert([
-                'id' => $i,
+                'id' => 'shorturl_'.$i,
                 'hits' => $i,
                 'shortUrl' => 'https://shortn.er/shorturl_'.$i,
                 'url' => 'https://www.google.com/search?&q='.$i,
@@ -24,7 +24,7 @@ class UrlSeeder extends Seeder
         }
         for ($i = 11 ; $i <= 15 ; $i++){
             DB::table('urls')->insert([
-                'id' => $i,
+                'id' => 'shorturl_'.$i,
                 'hits' => $i,
                 'shortUrl' => 'https://shortn.er/shorturl_'.$i,
                 'url' => 'https://www.google.com/search?&q='.$i,

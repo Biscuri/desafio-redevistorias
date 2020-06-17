@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\UrlRepository;
 use App\Repositories\UserRepository;
+use Exception;
 
 class ApiController extends Controller {
     protected $urlRepo;
@@ -14,11 +15,16 @@ class ApiController extends Controller {
         $this->userRepo = new UserRepository;
     }
 
-    public function getUrl() {
-        return response()->json(['success' => true], 200);
+    public function getUrl($id) {
+        try{
+            $url = $this->urlRepo->hit($id);
+            return response()->redirectTo($url->url);
+        } catch (Exception $e){
+            return response([], 404);
+        }
     }
     public function deleteUrl() {
-        return response()->json(['success' => true], 200);
+        return response([], 200);
     }
     public function getStats() {
         return response()->json(['success' => true], 200);

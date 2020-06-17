@@ -15,7 +15,6 @@ class User extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->string('id')->unique();
-            $table->timestamps();
         });
     }
 
