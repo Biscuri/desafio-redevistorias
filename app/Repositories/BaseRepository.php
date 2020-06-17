@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 interface BaseRepositoryInterface {
-    public function get();
+    public function get($id);
     public function list();
-    public function create();
-    public function delete();
+    public function create($data);
+    public function delete($data);
 }

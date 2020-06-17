@@ -2,7 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UrlRepository;
+use App\Repositories\UserRepository;
+
 class ApiController extends Controller {
+    protected $urlRepo;
+    protected $userRepo;
+
+    public function __construct() {
+        $this->urlRepo = new UrlRepository;
+        $this->userRepo = new UserRepository;
+    }
+
     public function getUrl() {
         return response()->json(['success' => true], 200);
     }

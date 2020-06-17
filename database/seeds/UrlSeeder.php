@@ -14,11 +14,11 @@ class UrlSeeder extends Seeder
     public function run()
     {
         for ($i = 0 ; $i < 5 ; $i++){
-            $id = Str::random(10);
+            $id = 'shorturl_'.$i;
             DB::table('urls')->insert([
                 'id' => $id,
-                'shortUrl' => 'http://shortn.er/'.$id,
-                'url' => 'http://'.Str::random(10).'.com',
+                'shortUrl' => 'https://shortn.er/'.$id,
+                'url' => 'https://www.google.com/search?&q='.$i,
                 'user_id' => 'joao'
             ]);
         }
