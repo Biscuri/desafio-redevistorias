@@ -53,8 +53,13 @@ class ApiController extends Controller {
         return response()->json($url, 201);
     }
 
-    public function createUser() {
-        return response()->json(['success' => true], 200);
+    public function createUser(Request $request) {
+        try {
+            $user = $this->userRepo->createUser($request->get('user'));
+            return response()->json($user, 201);
+        } catch (Exception $e){
+            return response([], 409);
+        }
     }
 
     public function getStatsUser() {
